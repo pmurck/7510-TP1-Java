@@ -33,6 +33,15 @@ public class InterpreterTest {
 	}
 	
 	@Test
+	public void testBadDBFileNameThrows() {
+		try {
+			new Interpreter("zaraza");
+		} catch (IOException e) {
+			Assert.assertTrue(true);
+		}
+	}
+	
+	@Test
 	public void testWrongQueryThrows() {
 		expExc.expect(WrongSyntaxException.class);
 		
