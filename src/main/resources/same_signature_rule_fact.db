@@ -1,0 +1,3 @@
+mujer(x) :- pepa(x).
+mujer(maria).
+

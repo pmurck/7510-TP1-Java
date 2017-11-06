@@ -1,0 +1,24 @@
+varon(juan).
+varon(pepe).
+varon(hector).
+varon(roberto).
+varon(alejandro).
+mujer(maria).
+mujer(cecilia).
+padre(juan, pepe).
+padre(juan, pepa).
+padre(hector, maria).
+padre(roberto, alejandro).
+padre(roberto, cecilia).
+hijo(X, Y) :- varon(X), padre(Y, X).
+hija(X, Y) :- mujer(X), padre(Y, X).
+hijo_de_juan(x) :- varon(x), padre(juan, x).
+hija_de_hector(alguien) :- hija(alguien, hector).
+error(A, B, C) :- error(C, B, A).
+wrapper(X, x) :- hijo(X, x).
+varon(juan, pepe).
+varon(X, Y, Z) :- varon(X, Y), varon(Z).
+unused(X, UnUsed) :- varon(X).
+empty_rule() :- varon(juan).
+OK_fact().
+bad_rule(x) :- no_fact(x).
