@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import ar.uba.fi.tdd.rulogic.exception.WrongSyntaxException;
+import ar.uba.fi.tdd.rulogic.model.Call;
 import ar.uba.fi.tdd.rulogic.model.Fact;
 import ar.uba.fi.tdd.rulogic.model.Method;
 import ar.uba.fi.tdd.rulogic.model.Rule;
@@ -68,7 +69,14 @@ public class Parser {
 		String rawBody = result.get(1);
 		
 		MethodBean mb = new MethodBean(rawMethod);
-		return new Rule(mb.getName(), mb.getParams());
+		
+		List<Call> calls = new ArrayList<>();
+		for (String rawCall : Parser.splitTrimAndFilterBlank(rawBody.replaceAll(CALL_DELIMITER_REGEX, CALL_DELIMITER_REPLACEMENT), CALL_DELIMITER)) {
+			MethodBean call = new MethodBean(rawCall);
+			calls.add(new Call(call.getName(), call.getParams()));
+		}
+		
+		return new Rule(mb.getName(), mb.getParams(), calls);
 	}
 
 	public static Method parse(String line){
